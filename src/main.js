@@ -11,7 +11,7 @@ import axios from 'axios'
 import vSelect from 'vue-select'
 import httpAdapter from 'axios/lib/adapters/http'
 
-axios.defaults.baseURL = 'http://localhost:8081'
+axios.defaults.baseURL = process.env.URL_API
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Accept'] = 'application/json'

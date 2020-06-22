@@ -1,7 +1,7 @@
 {
-  "name": "challenge-serasa-frontend",
+  "name": "admin-panel-frontend",
   "version": "1.0.0",
-  "description": "Serasa Challenge - New Developers Program",
+  "description": "Admin Panel for Priston Tale servers.",
   "author": "Arthur Wagenknecht",
   "private": true,
   "scripts": {

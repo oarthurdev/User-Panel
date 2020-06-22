@@ -1,10 +1,6 @@
-<h1 align="center">
-    <img alt="Challenge Serasa" src="logo.png" width="200px" />
-</h1>
+# Admin Panel
 
-# Challenge Serasa
-
-Challenge for New Developers Program.
+Admin Panel for Priston Tale servers.
 
 ## Installation
 
