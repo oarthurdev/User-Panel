@@ -2,14 +2,12 @@
   <div class="centered-container">
     <md-content class="md-elevation-3">
       <div class="title">
-        <img src="@/assets/serasa-logo.png" width="200" height="200" id="logo">
-        <div class="md-title">Serasa</div>
-        <div class="md-body-1">New Developers Program</div>
+        <img src="@/assets/logo.png" width="300" height="300" id="logo">
       </div>
       <div class="form">
         <md-field>
-          <label>CNPJ</label>
-          <md-input v-model="login.cnpj" autofocus></md-input>
+          <label>Email</label>
+          <md-input v-model="login.email" autofocus></md-input>
         </md-field>
         <md-field md-has-password>
           <label>Password</label>
@@ -37,7 +35,7 @@ export default {
     return {
       loading: false,
       login: {
-        cnpj: '',
+        email: '',
         password: ''
       }
     }
@@ -91,7 +89,7 @@ export default {
   }
 
   #logo {
-    max-width: 200px;
+    max-width: 300px;
   }
 
   .background {

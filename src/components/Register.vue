@@ -2,23 +2,46 @@
   <div class="centered-container">
     <md-content class="md-elevation-3">
       <div class="title">
-        <img src="@/assets/serasa-logo.png" width="200" height="200" id="logo">
-        <div class="md-title">Serasa</div>
-        <div class="md-body-1">Register Company</div>
+        <img src="@/assets/logo.png" width="300" height="300" id="logo">
       </div>
-      <div class="form">
+      <div class="form" style="margin-bottom: 0px;">
         <md-field>
-          <label>Name</label>
-          <md-input v-model="login.name" autofocus></md-input>
+          <label>Username</label>
+          <md-input v-model="user.username" autofocus></md-input>
         </md-field>
         <md-field>
-          <label>CNPJ</label>
-          <md-input v-model="login.cnpj" autofocus></md-input>
+          <label>Full Name</label>
+          <md-input v-model="user.fullname" autofocus></md-input>
         </md-field>
         <md-field md-has-password>
-          <label>Password</label>
-          <md-input v-model="login.password" type="password"></md-input>
+          <label>Email</label>
+          <md-input v-model="user.email" type="password"></md-input>
         </md-field>
+        <md-field>
+          <label>Password</label>
+          <md-input v-model="user.password" autofocus></md-input>
+        </md-field>
+        <md-field>
+          <label>Repeat Password</label>
+          <md-input v-model="user.repeatPassword" autofocus></md-input>
+        </md-field>
+        <md-datepicker v-model="user.dateBirth">
+          <label>Date of Birth</label>
+        </md-datepicker>
+        <md-field>
+          <label for="movie">Secret question</label>
+          <md-select v-model="user.secretQuestion" name="secretQuestion" id="secretQuestion">
+            <md-option value="numero-cpf">What is your social security number?</md-option>
+            <md-option value="rg-number">What is your RG number?</md-option>
+            <md-option value="favorite-movie">What is your favorite movie?</md-option>
+            <md-option value="teacher-name">What is the name of your first teacher?</md-option>
+          </md-select>
+        </md-field>
+        <md-field>
+          <label>Answer</label>
+          <md-input v-model="user.secretAnswer" autofocus></md-input>
+        </md-field>
+        <md-checkbox v-model="user.TOS">I accept the <a v-on:click="showDialog = true">terms of the contract.</a></md-checkbox>
       </div>
       <div class="actions md-layout md-alignment-center-space-between">
         <router-link to="login">Login</router-link>
@@ -33,15 +56,25 @@
 </template>
 
 <script>
+import TOS from '@/components/TermsOfContract.vue'
+
 export default {
   name: 'App',
   data () {
     return {
       loading: false,
-      login: {
+      user: {
         cnpj: '',
         password: '',
-        name: ''
+        email: '',
+        repeatPassword: '',
+        name: '',
+        dateBirth: '',
+        fullname: '',
+        secretQuestion: [],
+        secretAnswer: '',
+        TOS: null,
+        showDialog: false
       }
     }
   },
@@ -61,6 +94,9 @@ export default {
         }
       })
     }
+  },
+  components: {
+    tos: TOS
   }
 }
 </script>
@@ -90,7 +126,7 @@ export default {
   }
 
   #logo {
-    max-width: 200px;
+    max-width: 300px;
   }
 
   .background {
