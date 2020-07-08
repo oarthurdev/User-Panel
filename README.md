@@ -1,6 +1,6 @@
-# Admin Panel
+# User Panel
 
-Admin Panel for Priston Tale servers.
+User Panel for Priston Tale servers.
 
 ## Installation
 
