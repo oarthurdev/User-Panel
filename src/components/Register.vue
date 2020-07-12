@@ -11,25 +11,25 @@
         </md-field>
         <md-field>
           <label>Full Name</label>
-          <md-input v-model="user.fullname" autofocus></md-input>
+          <md-input v-model="user.name" autofocus></md-input>
+        </md-field>
+        <md-field>
+          <label>Email</label>
+          <md-input v-model="user.email" type="email"></md-input>
         </md-field>
         <md-field md-has-password>
-          <label>Email</label>
-          <md-input v-model="user.email" type="password"></md-input>
-        </md-field>
-        <md-field>
           <label>Password</label>
-          <md-input v-model="user.password" autofocus></md-input>
+          <md-input v-model="user.password" type="password" autofocus></md-input>
         </md-field>
-        <md-field>
+        <md-field md-has-password>
           <label>Repeat Password</label>
-          <md-input v-model="user.repeatPassword" autofocus></md-input>
+          <md-input v-model="user.repeatPassword" type="password" autofocus></md-input>
         </md-field>
         <md-datepicker v-model="user.dateBirth">
           <label>Date of Birth</label>
         </md-datepicker>
         <md-field>
-          <label for="movie">Secret question</label>
+          <label for="secretQuestion">Secret question</label>
           <md-select v-model="user.secretQuestion" name="secretQuestion" id="secretQuestion">
             <md-option value="numero-cpf">What is your social security number?</md-option>
             <md-option value="rg-number">What is your RG number?</md-option>
@@ -50,6 +50,7 @@
       <div class="loading-overlay" v-if="loading">
         <md-progress-spinner md-mode="indeterminate" :md-stroke="2"></md-progress-spinner>
       </div>
+      <vue-snotify></vue-snotify>
     </md-content>
     <div class="background" />
   </div>
@@ -64,7 +65,7 @@ export default {
     return {
       loading: false,
       user: {
-        cnpj: '',
+        username: '',
         password: '',
         email: '',
         repeatPassword: '',
@@ -80,17 +81,45 @@ export default {
   },
   methods: {
     register () {
+      const vm = this
+      const options = {
+        url: 'auth/register',
+        method: 'POST',
+        data: {
+          username: this.user.username,
+          password: this.user.password,
+          rpassword: this.user.repeatPassword,
+          name: this.user.name,
+          email: this.user.email,
+          birthdate: this.user.dateBirth,
+          secretquestion: this.user.secretQuestion,
+          secretanswer: this.user.secretAnswer,
+          toscheckbox: this.user.TOS
+        }
+      }
+
       this.loading = true
       setTimeout(() => {
         this.loading = false
       }, 5000)
-
-      this.$http.post('auth/register', { cnpj: this.login.cnpj, password: this.login.password, name: this.login.name }).then(function (res) {
-        console.log('teste')
-        if (res.data) {
-          console.log('Empresa inserida no banco de dados.')
+      this.$http(options).then(function (res) {
+        console.log('Registrando...')
+        if(res.data.userExists == false){
+          vm.$snotify.error('Usuário já está cadastrado.', 'Erro', {
+            timeout: 5000,
+            showProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false
+          })
         } else {
-          console.log('Ooops, try again.')
+          if (res.data) {
+            vm.$snotify.success('Usuário cadastrado.', 'Sucesso', {
+              timeout: 5000,
+              showProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: false
+            })
+        }
         }
       })
     }
